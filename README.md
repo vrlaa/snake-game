@@ -3,6 +3,7 @@
 | 0.1 | Gantt chart and work break down structure | 7.3.2018 | J. Gustafsson |
 | 0.2 | Extra features and project management added | 13.3.2018 | All |
 | 0.3 | Added example image of site view | 13.3.2018 | A. Antikainen |
+| 0.4 | Added site url | 20.3.2018 | A. Vaarala |
 |   |   |   |   |
 
 
@@ -30,7 +31,9 @@ Table of contents
 
 3.        Project plan        
 
-4.        Site Layout        
+4.        Site Layout    
+
+5.		  Site Url    
 
 
 
@@ -61,3 +64,7 @@ Figure 2. Project schedule
  ![Image](Website1.png)
 
 Image 1: Simple example of site view
+
+# 5. Site Url
+
+	http://intense-temple-48778.herokuapp.com
