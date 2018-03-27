@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from .forms import UserLogInForm
-form django.contrib.auth import (
+from django.contrib.auth import (
 	authenticate,
 	get_user_model,
 	login,
@@ -11,6 +11,7 @@ form django.contrib.auth import (
 def marjamehu(request):
 
 	return render(request, "marjamehu/marjamehu.html", {})
+
 def loginView(request):
 	form = UserLogInForm(request.POST or None)
 	if form.is_valid():
