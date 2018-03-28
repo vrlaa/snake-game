@@ -1,0 +1,16 @@
+{% extends "marjamehu/marjamehu.html" %}
+{% load crispy}
+
+{% block content %}
+<div>
+    <form action='' method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <label for="username">Username: </label>
+        <input id="username" type="text">
+        <br>
+        <label for="password">Password: </label>
+        <input id="password" type="password">
+        <br>
+        <input value='{{ title }}' type="submit" class="btn btn-default">
+    </form>
+</div>
+{% endblock %}

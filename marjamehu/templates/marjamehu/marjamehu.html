@@ -3,7 +3,13 @@
 	<title>Mummon marjamehu</title>
 </head>
 <body>
+	{% block navigationbar %} {% endblock %}
 	<p>jes</p>
 	<a href=/marjamehu/registeration.html>REKISTERÖINTYMINEN<a>
+	<br>
+	<a href=/marjamehu/login.html>KIRJAUTUMINEN<a>
+		<br>
+		<br>
+		{% block content %}{% endblock %}
 </body>
 </html>
