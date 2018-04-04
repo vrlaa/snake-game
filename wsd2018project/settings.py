@@ -94,8 +94,8 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'wsd2018project',
-        #'USER': '1joel',
-        #'PASSWORD': '1234'
+        'USER': '1joel',
+        'PASSWORD': '1234'
         # if you want to define user, password etc.
         # do it here
         }
@@ -148,6 +148,8 @@ STATICFILES_DIRS = [
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+LOGIN_REDIRECT_URL = '/'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
