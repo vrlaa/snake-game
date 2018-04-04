@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<!--
+Simple game for our project work. Group 58.
+At first we followed a snake game tutorial from youtube,
+https://www.youtube.com/watch?v=AaGK-fj-BAM&t=638s
+ but at some point
+we decided to make a simpler game wihtin the scope of limited time.
+
+HOW TO PLAY:
+Move with arrow keys, try to hit as many red squares as you can, within the
+time limit. Every time you hit a red square you get more time. The longer you
+survive higher the score.
+-->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SNAAKE</title>
+<style>
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div style="width:600px">
+    <table class="table table-borderless">
+        <tr style="display:inline">
+            <th style="display:inline-block;text-align:right"><p id="sc">Score:</p></th>
+            <th style="display:inline-block;text-align:left"><p id="score"></p></th>
+            <th style="display:inline-block;text-align:right"><p id="t">Time Left:</p></th>
+            <th style="display:inline-block;text-align:left"><p id="time"> </p></th>
+        </tr>
+    </table>
+        <ul class="nav navvbar-nav" style="width:100%">
+            <li style="width:25%"><button style="width:100%" class="btn btn-primary" id="submit_score">Submit score</button></li>
+            <li style="width:25%"><button style="width:100%" class="btn btn-primary" id="savegame">Save</button></li>
+            <li style="width:25%"><button style="width:100%" class="btn btn-primary" id="load">Load</button></li>
+            <li style="width:25%"><button style="width:100%" class="btn btn-primary" id="changeState" onclick="changeGameState()">Start</button></li>
+        </ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+
+    // Game variables
+    var snake;
+    var speed;
+    var fruit;
+    var score;
+    var timeleft;
+    var canvas;
+    var gamePaused  = 1;
+
+    $(document).ready( function() {
+      "use strict";
+
+      // messages IFrame the size of game window
+      var message =  {
+        messageType: "SETTING",
+        options: {
+          "width": 600, //Integer
+          "height": 720 //Integer
+          }
+      };
+      window.parent.postMessage(message, "*");
+
+      // submits score to parent window
+      $("#submit_score").click( function () {
+        if (timeleft <=0){
+            var msg = {
+              "messageType": "SCORE",
+              "score": parseInt($("#score").text())
+            };
+            window.parent.postMessage(msg, "*");
+        };
+
+      });
+
+      // messages gamestate and stats
+      $("#savegame").click( function () {
+          // can't save unless game is still running
+          if (timeleft >0){
+              var playerLoc = [];
+              var playerSpeed = [];
+              var fruitLoc = [];
+
+
+              playerLoc.push(snake.x);
+              playerLoc.push(snake.y);
+              playerSpeed.push(snake.xspeed);
+              playerSpeed.push(snake.yspeed);
+              fruitLoc.push(fruit.x);
+              fruitLoc.push(fruit.y);
+
+
+            var msg = {
+              "messageType": "SAVE",
+              "gameState": {
+                "playerLocation": playerLoc,
+                "playerSpeed":playerSpeed,
+                "fruit":fruitLoc,
+                "fruitSize":fruit.size,
+                "timeLeft":timeleft,
+                "score": parseInt($("#score").text())
+              }
+            };
+            console.log(playerLoc,playerSpeed,fruitLoc, fruit.size,timeleft);
+
+            window.parent.postMessage(msg, "*");
+            if (gamePaused == 0)
+                changeGameState();
+        }else{
+            alert("Can't save when the game is over.")
+        }
+      });
+
+      // requests saved files from database
+      $("#load").click( function () {
+        var msg = {
+          "messageType": "LOAD_REQUEST",
+        };
+        window.parent.postMessage(msg, "*");
+      });
+
+      // loads and sets game state and stats
+      window.addEventListener("message", function(evt) {
+      if(evt.data.messageType === "LOAD") {
+          snake.x=evt.data.gameState.playerLocation[0];
+          snake.y=evt.data.gameState.playerLocation[1];
+          snake.xspeed= evt.data.gameState.playerSpeed[0];
+          snake.yspeed= evt.data.gameState.playerSpeed[1];
+          fruit.x=evt.data.gameState.fruit[0];
+          fruit.y=evt.data.gameState.fruit[1];
+          fruit.size = evt.data.gameState.fruitSize;
+          score = evt.data.gameState.score;
+          $("#score").text(score);
+        } else if (evt.data.messageType === "ERROR") {
+          alert(evt.data.info);
+        }
+      });
+
+
+
+
+    });
+    // sets up game and game objects
+    function setup(){
+
+        canvas = createCanvas(600,600);
+        speed = 5;
+        snake = new Snake();
+        fruit = new Fruit();
+        score = 0;
+        timeleft = 1000;
+
+    }
+
+    //draws game window
+    function draw(){
+        background(50);
+        snake.show();
+        fruit.show();
+
+        if (gamePaused !=1){
+            if (timeleft > 0){
+                gameUpdate();
+            }else{
+                document.getElementById("score").innerHTML = score;
+                document.getElementById("time").innerHTML = "GAME OVER";
+                document.getElementById("changeState").textContent="Restart";
+                gamePaused =2;
+                snake.hide();
+                fruit.hide();
+                background(255,0,0);
+            }
+        }
+    }
+
+    // updates game objects and stats
+    function gameUpdate(){
+        snake.update();
+        snake.show();
+        fruit.show();
+        score = score+1;
+        timeleft = timeleft-1;
+        document.getElementById("score").innerHTML = score;
+        document.getElementById("time").innerHTML = timeleft;
+    }
+
+    // Spawns fruit and changes its location when player hits it
+    function Fruit(){
+        this.x = random(590);
+        this.y = random(590);
+        this.size=random(1,2);
+        this.show = function(){
+            fill(200,0,50);
+            rect(this.x,this.y,this.size*15,this.size*15);
+        }
+        this.update =function(){
+            this.x = random(590);
+            this.y = random(590);
+            this.size=random(1,2);
+            timeleft = timeleft+floor(200/this.size);
+        }
+        this.hide = function(){
+            fill(255,0,0);
+            rect(this.x,this.y,this.size*15,this.size*15);
+        }
+    }
+
+
+    // reacts to keypressess
+    function keyPressed(){
+        if(keyCode === UP_ARROW){
+
+                snake.yspeed=-speed;
+                snake.xspeed =0;
+
+
+        }else if (keyCode === DOWN_ARROW) {
+
+                snake.yspeed=speed;
+                snake.xspeed=0;
+
+
+        }else if (keyCode===LEFT_ARROW){
+
+                snake.xspeed =-speed;
+                snake.yspeed =0;
+
+
+        }else if (keyCode===RIGHT_ARROW){
+
+                snake.xspeed =speed;
+                snake.yspeed =0;
+
+            }
+    }
+    // sets "snake" position and speed, controls its boundaries
+    // and checks if the block hits a fruit
+    function Snake(){
+        this.x =0;
+        this.y=0;
+        this.xspeed=speed;
+        this.yspeed=0;
+        this.update = function(){
+            this.x=this.x+this.xspeed;
+            if (this.x >594){
+                this.x = -13;
+            }else if(this.x <-13){
+                this.x =594;
+            }
+            this.y =this.y + this.yspeed;
+            if (this.y >599){
+                this.y=-13;
+            }else if(this.y <-13){
+                this.y =594;
+            }
+            if (dist(this.x+15/2,this.y+15/2,fruit.x+(fruit.size*15)/2,
+            fruit.y+(fruit.size*15)/2)<(fruit.size*15/2)+15/2){
+                fruit.update();
+                speed = speed+0.2;
+            }
+        }
+        this.show =function(){
+            fill(0,200,0);
+            rect(this.x,this.y,15,15);
+        }
+        this.hide = function(){
+            fill(255,0,0);
+            rect(this.x,this.y,15,15);
+            this.x=0;
+            this.y=0;
+            this.yspeed =0;
+            this.xspeed = 0;
+        }
+    }
+    // Pauses and unpauses the game
+    // changes button text between start, pause and resume
+    function changeGameState(){
+        var elem = document.getElementById("changeState");
+        if (gamePaused == 0){
+            gamePaused = 1;
+            elem.textContent="Resume";
+        }else if(gamePaused == 1){
+            gamePaused =0;
+            elem.textContent="Pause";
+        }
+        else{
+            gamePaused=0;
+            elem.textContent="Pause";
+            setup();
+        }
+    }
+    </script>
+</body>
+</html>
