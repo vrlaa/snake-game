@@ -10,6 +10,9 @@ from django.contrib.auth import authenticate, login
 def marjamehu(request):
     return render(request, "marjamehu/marjamehu.html", {})
 
+def home(request):
+    return render(request, "marjamehu/base.html", {})
+
 def peli(request):
     return render(request, "marjamehu/peli.html", {})
 

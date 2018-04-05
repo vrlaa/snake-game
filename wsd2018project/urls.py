@@ -22,8 +22,9 @@ from marjamehu import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(r'home/', views.home, name='home'),
     path(r'marjamehu/', views.marjamehu, name='marjamehu'),
-    path(r'marjamehu/peli', views.peli, name='peli'),
+    path(r'home/peli', views.peli, name='peli'),
     path(r'accounts/', include('django.contrib.auth.urls')),
     path('register', views.register, name='register')
     #url(r'^login/$', auth_views.login, name='login')
