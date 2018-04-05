@@ -16,24 +16,39 @@ survive higher the score.
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>SNAAKE</title>
 <style>
+li {
+  color:white;
+}
+.buttonlist, .infolist {
+  margin-bottom:0px;
+  vertical-align: middle;
+}
+.nappi {
+  color: white;
+  background-color: black;
+  transition:ease-in-out;
+}
+.nappi:hover {
+  background-color: rgb(100,0,0);
+  position:relative;
+  top:-1px;
+}
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body>
-    <div style="width:600px">
-    <table class="table table-borderless">
-        <tr style="display:inline">
-            <th style="display:inline-block;text-align:right"><p id="sc">Score:</p></th>
-            <th style="display:inline-block;text-align:left"><p id="score"></p></th>
-            <th style="display:inline-block;text-align:right"><p id="t">Time Left:</p></th>
-            <th style="display:inline-block;text-align:left"><p id="time"> </p></th>
-        </tr>
-    </table>
-        <ul class="nav navvbar-nav" style="width:100%">
-            <li style="width:25%"><button style="width:100%" class="btn btn-primary" id="submit_score">Submit score</button></li>
-            <li style="width:25%"><button style="width:100%" class="btn btn-primary" id="savegame">Save</button></li>
-            <li style="width:25%"><button style="width:100%" class="btn btn-primary" id="load">Load</button></li>
-            <li style="width:25%"><button style="width:100%" class="btn btn-primary" id="changeState" onclick="changeGameState()">Start</button></li>
+<body style="width:600px;height:662px;">
+    <div style="width:600px;background-color:black">
+        <ul class="list-unstyled buttonlist" style="display:flex;width:100%">
+            <li id="sc" style="text-align:right;width:25%;color:white">Score:</li>
+            <li id="score" style="text-align:left;width:25%"></li>
+            <li id="t" style="text-align:right;width:25%">Time Left:</li>
+            <li id="time" style="text-align:left;width:25%"></li>
+        </ul>
+        <ul class="list-unstyled infolist" style="width:100%;display:flex">
+            <li style="width:25%"><button style="width:100%" class="btn nappi" id="submit_score">Submit score</button></li>
+            <li style="width:25%"><button style="width:100%" class="btn nappi" id="savegame">Save</button></li>
+            <li style="width:25%"><button style="width:100%" class="btn nappi" id="load">Load</button></li>
+            <li style="width:25%"><button style="width:100%" class="btn nappi" id="changeState" onclick="changeGameState()">Start</button></li>
         </ul>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
@@ -58,7 +73,7 @@ survive higher the score.
         messageType: "SETTING",
         options: {
           "width": 600, //Integer
-          "height": 720 //Integer
+          "height": 662 //Integer
           }
       };
       window.parent.postMessage(message, "*");
