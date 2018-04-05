@@ -233,29 +233,34 @@ li {
     // reacts to keypressess
     function keyPressed(){
         if(keyCode == UP_ARROW){
-
+            if (gamePaused != 1) {
                 snake.yspeed=-speed;
                 snake.xspeed =0;
+            }
+        }
 
-
-        }else if (keyCode == DOWN_ARROW) {
-
+        else if (keyCode == DOWN_ARROW) {
+            if (gamePaused != 1) {
                 snake.yspeed=speed;
                 snake.xspeed=0;
+            }
+        }
 
-
-        }else if (keyCode==LEFT_ARROW){
-
+        else if (keyCode==LEFT_ARROW){
+            if (gamePaused != 1) {
                 snake.xspeed =-speed;
                 snake.yspeed =0;
+            }
+        }
 
-
-        }else if (keyCode==RIGHT_ARROW){
-
+        else if (keyCode==RIGHT_ARROW){
+            if (gamePaused != 1) {
                 snake.xspeed =speed;
                 snake.yspeed =0;
+              }
+        }
 
-        }else if (keyCode==0 || keyCode==32){
+        else if (keyCode==0 || keyCode==32){
           changeGameState();
         }
     }
