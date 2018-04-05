@@ -13,15 +13,18 @@ survive higher the score.
 -->
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0"/>
 <title>SNAAKE</title>
 <style>
 li {
   color:white;
 }
-.buttonlist, .infolist {
+.buttonlist {
   margin-bottom:0px;
-  vertical-align: middle;
+}
+.infolist {
+  margin-bottom:0px;
+  padding: 7px 0px;
 }
 .nappi {
   color: white;
@@ -33,22 +36,26 @@ li {
   position:relative;
   top:-1px;
 }
+#peli {
+  max-height: 600px;
+}
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body style="width:600px;height:662px;">
     <div style="width:600px;background-color:black">
-        <ul class="list-unstyled buttonlist" style="display:flex;width:100%">
-            <li id="sc" style="text-align:right;width:25%;color:white">Score:</li>
-            <li id="score" style="text-align:left;width:25%"></li>
-            <li id="t" style="text-align:right;width:25%">Time Left:</li>
-            <li id="time" style="text-align:left;width:25%"></li>
-        </ul>
-        <ul class="list-unstyled infolist" style="width:100%;display:flex">
+        <ul class="list-unstyled buttonlist" style="width:100%;display:flex">
             <li style="width:25%"><button style="width:100%" class="btn nappi" id="submit_score">Submit score</button></li>
             <li style="width:25%"><button style="width:100%" class="btn nappi" id="savegame">Save</button></li>
             <li style="width:25%"><button style="width:100%" class="btn nappi" id="load">Load</button></li>
             <li style="width:25%"><button style="width:100%" class="btn nappi" id="changeState" onclick="changeGameState()">Start</button></li>
+        </ul>
+        <div id="peli"></div>
+        <ul class="list-unstyled infolist" style="display:flex;width:100%">
+            <li id="sc" style="text-align:right;width:25%;color:white">Score:</li>
+            <li id="score" style="text-align:left;width:25%"></li>
+            <li id="t" style="text-align:right;width:25%">Time Left:</li>
+            <li id="time" style="text-align:left;width:25%"></li>
         </ul>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
@@ -161,12 +168,12 @@ li {
     function setup(){
 
         canvas = createCanvas(600,600);
+        canvas.parent("peli")
         speed = 5;
         snake = new Snake();
         fruit = new Fruit();
         score = 0;
         timeleft = 1000;
-
     }
 
     //draws game window
