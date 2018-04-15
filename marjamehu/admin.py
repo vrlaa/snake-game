@@ -1,9 +1,9 @@
 from django.contrib import admin
 from marjamehu.models import (
     CustomUser,
-    Game
+    #Game
 )
 # Register your models here.
 
 admin.site.register(CustomUser)
-admin.site.register(Game)
+#admin.site.register(Game)

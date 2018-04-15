@@ -81,30 +81,30 @@ class CustomUser(AbstractBaseUser):
 
 #### GAME MODELS #############################################################
 
-class Game(models.Model):
-    # Username has maximum of 20 characters
-    developer       = models.ForeignKey('marjamehu.CustomUser', on_delete=models.CASCADE)
-    # game_highscores = models.ForeignKey('marjamehu.HighScores', on_delete=models.CASCADE)
-    # game_saves      = models.ForeignKey('marjamehu.Saves', on_delete=models.CASCADE)
+# class Game(models.Model):
+#     # Username has maximum of 20 characters
+#     developer       = models.ForeignKey('marjamehu.CustomUser', on_delete=models.CASCADE)
+#     # game_highscores = models.ForeignKey('marjamehu.HighScores', on_delete=models.CASCADE)
+#     # game_saves      = models.ForeignKey('marjamehu.Saves', on_delete=models.CASCADE)
 
-    game_url        = models.CharField(max_length=255)
-    game_name       = models.CharField(max_length=100, unique=True)
-    game_price      = models.PositiveIntegerField()
-    published_date  = models.DateTimeField(default=timezone.now)
+#     game_url        = models.CharField(max_length=255)
+#     game_name       = models.CharField(max_length=100, unique=True)
+#     game_price      = models.PositiveIntegerField()
+#     published_date  = models.DateTimeField(default=timezone.now)
 
-    def publish(self):
-        self.published_date = timezone.now()
+#     def publish(self):
+#         self.published_date = timezone.now()
 
-    # Save user game to Saves model
-    # def save_game(self, username, game_info):
-        pass
+#     # Save user game to Saves model
+#     # def save_game(self, username, game_info):
+#         pass
 
-    # Save highscores to HighScores model
-    # def save_highscores(self, username, highscore):
-        pass
+#     # Save highscores to HighScores model
+#     # def save_highscores(self, username, highscore):
+#         pass
 
-    def __str__(self):
-        return self.game_name
+#     def __str__(self):
+#         return self.game_name
 
 
 
