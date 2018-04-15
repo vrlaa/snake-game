@@ -1,0 +1,32 @@
+<html>
+<head>
+	<title>Mummon marjamehu</title>
+</head>
+<body>
+  <div id=navbar>
+    <link rel="stylesheet" href="navbarstyle.css" />
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <ul id="navigation">
+      <li><a class="btn btn-primary" href="www.youtube.com"> Profile </a></li>
+      <li><a href="/home"> best gamin site not virus</a></li>
+      <li><a href="/home/login">Login</a></li>
+      <li><a href="/home/register">Register</a></li>
+      <li class=dropdownmenu>
+        <a href="javascript:void(0)" class="ddButton">Games</a>
+        <div class="ddContent">
+          <!-- Get links from ? with jquery -->
+          <a href="/home/peli">Game 1</a>
+          <a href="#">Game 2</a>
+          <a href="#">Game 3</a>
+          <a href="#">Game 4</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+		<br>
+		<br>
+		{% block content %}{% endblock %}
+</body>
+</html>

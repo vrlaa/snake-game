@@ -42,9 +42,9 @@ INSTALLED_APPS = [
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-
-
+    'crispy_forms',
 ]
+AUTH_USER_MODEL = 'marjamehu.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -94,8 +94,8 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'wsd2018project',
-        'USER': '1joel',
-        'PASSWORD': '1234'
+        # 'USER': '1joel',
+        # 'PASSWORD': '1234'
         # if you want to define user, password etc.
         # do it here
         }
@@ -150,6 +150,8 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_REDIRECT_URL = '/'
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

@@ -1,40 +1,46 @@
-{% extends "marjamehu/marjamehu.html" %}
+{% extends "marjamehu/base.html" %}
 
 {% block content %}
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <h2>maaailman paras peli</h2>
-<iframe src="#" id="peliframe" width="1000" height="1000">
+<iframe src="https://vrlaa.github.io/snake-game/" id="peliframe" width="1000" height="1000">
   <p> Your browser does not support iframes <p>
 </iframe>
 
 <script>
-  $(document.ready(function(){
+  $( document ).ready(function(){
   var peli = document.getElementById("peliframe");
-  peli.addEventListener("message"), function(evt) {
-    if(evt.data.messageType == "LOAD_REQUEST")
+  peli.addEventListener("msg", function(evt) {
+    console.log("viesti");
+    if(evt.data.messageType === "LOAD_REQUEST"){
+      console.log("Loadrequest");
       alert(evt.data.messageType);
       // Search gamestate and send it back
       var msg = {
         "messageType": "LOAD"
-      }
+      };
       HTMLIFrameElement.contentWindow.postMessage(msg, '*');
-    }else if(evt.data.messageType == "SAVE"){
+    }else if(evt.data.messageType === "SAVE"){
       // Save gamestate under the users name
       alert(evt.data.messageType);
-    }else if(evt.data.messageType == "SCORE"){
+      console.log("Save");
+    }else if(evt.data.messageType === "SCORE"){
       // Save score under the users name
       alert(evt.data.messageType);
       // just an error test
       var msg = {
-        "messageType": "ERROR"
-        "info": "Ime paskaaaaaaaa"
+        "messageType": "ERROR",
+        "info": "There has been a terrible error"
       };
+      console.log("Score");
       HTMLIFrameElement.contentWindow.postMessage(msg, '*');
-    }else if(evt.data.messageType == "SETTING"){
-      alert(evt.data.messageType)
+    }else if(evt.data.messageType === "SETTING"){
+      alert(evt.data.messageType);
+      console.log("Setting");
     }
-  }
-)
+  });
+});
+
 </script>
 
 {% endblock %}

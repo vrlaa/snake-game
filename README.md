@@ -61,9 +61,19 @@ Figure 2. Project schedule
 
 # 4. Site Layout
 
+
  ![Image](Website1.png)
 
 Image 1: Simple example of site view
+
+The different templates are created and extended to the base.html file. The style sheets are out in the static directory.
+
+#4.1
+
+# 6. Authentication
+
+The authentication is done by using the Django's default authentication system. The registeration form is modified to include
+a choice between a player and a developer accounts. The player account can only buy and play games but the developer account can also add games to the store. The modified registeration form is defined in the forms.py file.
 
 # 5. Site Url
 
